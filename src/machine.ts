@@ -11,7 +11,7 @@ import {
 
 export function createViewMachine<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 >(styles: StateViewContextMap<S, ST>) {
   // #region Config
 

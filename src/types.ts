@@ -12,14 +12,16 @@ export type SimpleState<
   T extends StateMachine.State<any, any, any>
 > = T['value'] | T;
 
-export type StateViewContext<ST extends AllStyle = AllStyle> = {
-  state: Partial<ST>;
-  transition?: Partial<Record<keyof ST, TransitionConfig>>;
+export type StateViewContext<
+  ST extends keyof AllStyle = keyof AllStyle
+> = {
+  state: Partial<Pick<AllStyle, ST>>;
+  transition?: Partial<Record<ST, TransitionConfig>>;
 };
 
 export type StateView<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 > = StateViewContext<ST> & {
   cond?: (
     context?: StateViewContext<ST>,
@@ -33,7 +35,7 @@ export type StateView<
 
 export type StateViewContextMap<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 > = {
   [key in S]: StateView<S, ST>;
 };
@@ -42,7 +44,7 @@ export type ViewEvent<S extends string = string> = { type: S };
 
 export type ViewConfigWithTarget<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 > = {
   id?: string;
   context?: StateViewContext<ST>;
@@ -70,10 +72,10 @@ export type ViewConfigWithTarget<
 
 export type ActionView<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 > = StateMachine.Action<StateViewContext<ST>, ViewEvent<S>>;
 
 export type ActionViewMap<
   S extends string = string,
-  ST extends AllStyle = AllStyle
+  ST extends keyof AllStyle = keyof AllStyle
 > = Record<S, Exclude<ActionView<S, ST>, string>>;
