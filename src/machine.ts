@@ -72,19 +72,3 @@ export function createViewMachine<
     { actions }
   );
 }
-
-const d = createViewMachine({
-  idle: {
-    state: { alignContent: 'flex-start' },
-  },
-  start: {
-    state: { alignContent: 'flex-start' },
-  },
-  finish: {
-    state: { alignContent: 'flex-start' },
-  },
-});
-
-console.log('*********************************************');
-
-console.log(JSON.stringify(d, null, 2));
